@@ -38,6 +38,14 @@ export class PostsController {
   findAll(@Query('userId') userId: string) {
     return this.postsService.findAll(isEmpty(userId) ? null : userId);
   }
+  // @Get()
+  // async findAll(
+  //   @Query('userId') userId: string,
+  //   @Query('page') page: number,
+  //   @Query('perPage') perPage: number,
+  // ) {
+  //   return this.postsService.findAll(userId, page, perPage);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

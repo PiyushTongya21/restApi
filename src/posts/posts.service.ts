@@ -34,6 +34,32 @@ export class PostsService {
       throw new Error(`Failed to fetch posts: ${error.message}`);
     }
   }
+  
+  //  async findAll(userId: string, page = 1, perPage = 10) {
+  //   try {
+  //     const skip = (page - 1) * perPage;
+  //     const take = perPage;
+  //     return await this.prismaService.post.findMany({
+  //       where: {
+  //         userId,
+  //       },
+  //       select: {
+  //         id: true,
+  //         title: true,
+  //         body: true,
+  //         user: true,
+  //       },
+  //       skip: skip,
+  //       take: take,
+  //       orderBy: {
+  //         updatedAt: 'desc',
+  //       },
+  //     });
+  //   } catch (error) {
+  //     throw new Error(`Failed to fetch posts: ${error.message}`);
+  //   }
+  // }
+
 
   async findOne(id: string) {
     try {

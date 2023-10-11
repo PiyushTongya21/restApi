@@ -14,9 +14,14 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
+  // @Get()
+  // findAll(@Query() query: CategoryQueryDto) {
+  //   return this.categoriesService.findAll(isEmpty(query) ? null : query);
+  // }
   @Get()
-  findAll(@Query() query: CategoryQueryDto) {
-    return this.categoriesService.findAll(isEmpty(query) ? null : query);
+  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
+    return this.categoriesService.findAll(page, perPage);
+
   }
 
   @Get(':id')

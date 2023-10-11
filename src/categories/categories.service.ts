@@ -6,7 +6,7 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class CategoriesService {
-  constructor(private prismaService: PrismaService){}
+  constructor(private prismaService: PrismaService) {}
   async create(createCategoryDto: CreateCategoryDto) {
     try {
       return await this.prismaService.category.create({
@@ -17,13 +17,28 @@ export class CategoriesService {
     }
   }
 
-  async findAll(query: Prisma.CategoryInclude) {
+  async findAll(page?: number, perPage?: number) {
     try {
-      return await this.prismaService.category.findMany({ include: query });
+      const skip = (page - 1) * perPage;
+      const take = +perPage;
+      return await this.prismaService.category.findMany({
+        skip: skip ? skip : undefined,
+        take: take ? take : undefined,
+        orderBy: {
+          updatedAt: 'desc',
+        },
+      });
     } catch (error) {
       throw new Error(`Unable to retrieve categories: ${error.message}`);
     }
   }
+  // async findAll(query: Prisma.CategoryInclude) {
+  //   try {
+  //     return await this.prismaService.category.findMany({ include: query });
+  //   } catch (error) {
+  //     throw new Error(`Unable to retrieve categories: ${error.message}`);
+  //   }
+  // }
 
   async findOne(id: string) {
     try {

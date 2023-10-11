@@ -15,9 +15,15 @@ export class UsersController {
   }
 
   @Get()
-  findAll(@Query() query: UserQueryDto) {
-    return this.usersService.findAll(isEmpty(query) ? null : query);
+  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
+    return this.usersService.findAll(page, perPage);
+
   }
+
+  // @Get()
+  // findAll(@Query() query: UserQueryDto) {
+  //   return this.usersService.findAll(isEmpty(query) ? null : query);
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

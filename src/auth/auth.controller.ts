@@ -24,7 +24,7 @@ export class AuthController {
   @Get('profile')
   @UseGuards(JwtGuard)
   profile(@Me() me) {
-    return me;
+    return me;  
   }
 
   @Post('register')
@@ -32,3 +32,4 @@ export class AuthController {
     return this.authService.registerUser(createUserDto);
   }
 }
+  

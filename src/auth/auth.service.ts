@@ -25,7 +25,9 @@ export class AuthService {
       sub: user.id,
     });
     return {
-      access_token: accessToken,
+      user_id: user.id,
+      name: user.name,
+      accessToken,
     };
   }
   async registerUser(createUserDto: CreateUserDto) {
