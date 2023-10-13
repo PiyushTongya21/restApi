@@ -17,12 +17,33 @@ export class PostsService {
     }
   }
 
-  async findAll(userId: string) {
+
+  // async findAll(userId: string) {
+  //   try {
+  //     return await this.prismaService.post.findMany({
+  //       where: {
+  //         userId,
+  //       },
+  //       select: {
+  //         id: true,
+  //         title: true,
+  //         body: true,
+  //         user: true,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     throw new Error(`Failed to fetch posts: ${error.message}`);
+  //   }
+  // }
+
+  async findAll(page?: number, perPage?: number) {
     try {
+      const skip = (page - 1) * perPage;
+      const take = +perPage;
       return await this.prismaService.post.findMany({
-        where: {
-          userId,
-        },
+        skip: skip ? skip : undefined,
+        take: take ? take : undefined,
+        orderBy: { updatedAt: 'desc' },
         select: {
           id: true,
           title: true,
@@ -35,33 +56,7 @@ export class PostsService {
     }
   }
   
-  //  async findAll(userId: string, page = 1, perPage = 10) {
-  //   try {
-  //     const skip = (page - 1) * perPage;
-  //     const take = perPage;
-  //     return await this.prismaService.post.findMany({
-  //       where: {
-  //         userId,
-  //       },
-  //       select: {
-  //         id: true,
-  //         title: true,
-  //         body: true,
-  //         user: true,
-  //       },
-  //       skip: skip,
-  //       take: take,
-  //       orderBy: {
-  //         updatedAt: 'desc',
-  //       },
-  //     });
-  //   } catch (error) {
-  //     throw new Error(`Failed to fetch posts: ${error.message}`);
-  //   }
-  // }
-
-
-  async findOne(id: string) {
+ async findOne(id: string) {
     try {
       return await this.prismaService.post.findUnique({ where: { id } });
     } catch (error) {
@@ -88,3 +83,4 @@ export class PostsService {
     }
   }
 }
+  

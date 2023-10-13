@@ -34,10 +34,24 @@ export class PostsController {
     });
   }
 
+  // @Get()
+  // findAll(@Query('userId') userId: string) {
+  //   return this.postsService.findAll(isEmpty(userId) ? null : userId);
+  // }
   @Get()
-  findAll(@Query('userId') userId: string) {
-    return this.postsService.findAll(isEmpty(userId) ? null : userId);
+  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
+    return this.postsService.findAll(page, perPage);
   }
+
+
+
+  // @Get('search')
+  // async search(@Query('keyword') keyword: string) {
+  //   const results = await this.postsService.searchPosts(keyword);
+  //   return results;
+  // }
+
+
   // @Get()
   // async findAll(
   //   @Query('userId') userId: string,
